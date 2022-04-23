@@ -38,6 +38,7 @@ tuile::tuile(int n):Union_find(n){
     for (int i = 0; i < 16; i++){
             tabCases[i].couleurP = -1;
             tabCases[i].existeP = false;
+            boutiques[i] = false;
     }
 
     tabCases[13].existeP = true;
@@ -51,15 +52,21 @@ tuile::tuile(int n):Union_find(n){
 
     for (int k = 0; k < 5; k++){
         murs.push_back(k);
+        mursPresents[k] = true;
     }
     for (int k = 7; k < 17; k++){
         murs.push_back(k);
+        mursPresents[k] = true;
+
     }
     for (int k = 19; k < 24; k++){
         murs.push_back(k);
+        mursPresents[k] = true;
     }
-
-
+    mursPresents[5] = false;
+    mursPresents[6] = false;
+    mursPresents[17] = false;
+    mursPresents[18] = false;
     quelMur();
     ajouterFonctionPad(0, 0);
 
@@ -83,11 +90,10 @@ void tuile::tuileSuivante(int x, int y){
     // 0 : aucune, 1 : jaune, 2 : violet, 3 : orange, 4 : vert
     aucune = jaune = orange = violet = vert = false;
 
-
-
     for (int i = 0; i < 16; i++){
         tabCases[i].couleurP = -1;
         tabCases[i].existeP = false;
+        boutiques[i] = false;
     }
 
     tabCases[13].existeP = true;
@@ -107,6 +113,7 @@ void tuile::tuileSuivante(int x, int y){
 
     for (int k = 0; k < 24; k++){
         murs.push_back(k);
+        mursPresents[k] = true;
     }
 
     quelMur();
@@ -135,7 +142,7 @@ void tuile::quelMur(){
         toutesCases.fusion(6,9);
         toutesCases.fusion(9,10);
     }
-    /*
+/*
     for (unsigned int j = 0; j < l; j++){
         std::cout<< murs[j] << " ";
     }*/
@@ -149,18 +156,165 @@ void tuile::quelMur(){
         murs[l - i - 1] = murs[index] ;
         murs[index] = tmp ;
     }
-    /*
+/*
     for (unsigned int j = 0; j < l; j++){
         std::cout<< murs[j] << " ";
-    }*/
+    }
+    std::cout << std::endl; */
     while (!toutRelies(toutesCases)){
         Mur m(murs[0]);
         // std::cout << m[0].index() << " " << m[1].index() << " ";
         murs.erase(murs.begin());
+        mursPresents[m.index()] = false;
         if(!recherche(m[0].index(), m[1].index())){
             toutesCases.fusion(m[0].index(), m[1].index());
         }
     }
+/*
+    for (unsigned int j = 0; j < murs.size(); j++){
+        std::cout<< murs[j] << " ";
+    }
+    std::cout << std::endl; */
+
+    for (int k = 0; k < 16; k++){
+        if (!toutesCases.recherche(k, 13)){
+            boutiques[k] = true;
+        }
+    }
+
+    bool change = false;
+    while (!change){
+        change = true;
+
+        for (int i = 0; i < 16; i++){
+
+            if (!(tabCases[i].existeP||(obj&&caseObjectif == i)||(sort&&caseSortie == i))){
+                Case c(i);
+                int cmptr = 0;
+                if (i < 4){
+                    cmptr++;
+                }
+                else {
+                    Mur m(c, c.haut());
+                    if (mursPresents[m.index()] == true){
+                        cmptr++;
+                    }
+                }
+                if (i > 11){
+                    cmptr++;
+                }
+                else {
+                    Mur m(c, c.bas());
+                    if (mursPresents[m.index()] == true){
+                    cmptr++;
+                }
+                }
+                if (i%4 == 0){
+                    cmptr++;
+                }
+                else {
+                    Mur m(c, c.gauche());
+                    if (mursPresents[m.index()] == true){
+                        cmptr++;
+                    }
+                }
+                if (i%4 == 3){
+                    cmptr++;
+                }
+                else {
+                    Mur m(c, c.droite());
+                    if (mursPresents[m.index()] == true){
+                        cmptr++;
+                    }
+                }
+
+                if (cmptr == 3){
+                    bool construit = false;
+                    if ((!construit)&&!(i < 4)){
+                        Mur m(c, c.haut());
+                        if (mursPresents[m.index()] == false){
+                            mursPresents[m.index()] = true;
+                            murs.push_back(m.index());
+                            construit = true;
+                        }
+
+                    }
+                    if ((!construit)&&!(i > 11)){
+                        Mur m(c, c.bas());
+                        if (mursPresents[m.index()] == false){
+                            mursPresents[m.index()] = true;
+                            murs.push_back(m.index());
+                            construit = true;
+                        }
+
+                    }
+                    if ((!construit)&&!(i%4 == 0)){
+                        Mur m(c, c.gauche());
+                        if (mursPresents[m.index()] == false){
+                            mursPresents[m.index()] = true;
+                            murs.push_back(m.index());
+                            construit = true;
+                        }
+
+                    }
+                    if ((!construit)&&!(i%4 == 3)){
+                        Mur m(c, c.droite());
+                        if (mursPresents[m.index()] == false){
+                            mursPresents[m.index()] = true;
+                            murs.push_back(m.index());
+                        }
+
+                    }
+                    boutiques[i] = true;
+                    change = false;
+                }
+            }
+            }
+    }
+/*
+    for (unsigned int j = 0; j < 16; j++){
+        std::cout<< boutiques[j] << " ";
+    }
+    std::cout << std::endl;
+
+    for (unsigned int j = 0; j < murs.size(); j++){
+        std::cout<< murs[j] << " ";
+    }
+    std::cout << std::endl;*/
+        //unsigned int L = murs.size();
+        unsigned int i = 0;
+        while(i < murs.size())
+            {
+                Mur m(murs[i]);
+                //std::cout << m.index() << " ";
+                if (boutiques[m[0].index()] && boutiques[m[1].index()]){
+                    mursPresents[m.index()] = false;
+                    murs.erase(murs.begin()+i);
+                    i--;
+                }
+                i++;
+                /*
+                else{
+                    if(!toutesCases.recherche(m[0].index(),13)){
+
+                        if(!toutesCases.recherche(m[1].index(),13))
+                        {
+                            mursPresents[m.index()] = false;
+                            murs.erase(murs.begin()+i);
+                        }
+                    }
+                }
+                */
+            }
+
+        /*for (unsigned int j = 0; j < murs.size(); j++){
+            std::cout<< murs[j] << " ";
+        }
+        std::cout << std::endl; */
+
+            //std::cout << std::endl;
+
+
 
 }
 
@@ -255,6 +409,9 @@ void tuile::ajouterFonctionPad(int x, int y){
     for (int i =0; i < 16; i++){
         if (tabCases[i].existeP){
             pad.ajouter_porte(x, y, Case(i), (conversionCouleur(tabCases[i].couleurP)));
+        }
+        if (boutiques[i]){
+            pad.ajouter_boutique(x, y, Case(i));
         }
     }
 

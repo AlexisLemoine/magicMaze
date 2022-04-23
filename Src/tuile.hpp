@@ -27,6 +27,8 @@ public:
     std::vector<int> tuile_CoorY;
 
     std::vector<int> murs;
+    bool mursPresents[24];
+    bool boutiques[16];
 
     // 0 : aucune (couleur grise), 1 : jaune, 2 : violet, 3 : orange, 4 : vert
     bool jaune, violet, orange, vert, aucune;

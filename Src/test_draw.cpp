@@ -70,8 +70,9 @@ int main() {
   std::vector<graphe>tabgraphe;
 
   tuile T(24);
-  tabgraphe.push_back(T.getGraphe());
 
+  tabgraphe.push_back(T.getGraphe());
+/*
   T.tuileSuivante(0, 1);
   tabgraphe.push_back(T.getGraphe());
 
@@ -90,13 +91,24 @@ int main() {
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
 
+*/
+  for (int i = -2;i < 2; i++){
+      for (int j = -2; j < 3; j++){
+          if (!((i ==0)&&(j==0))){
+            T.tuileSuivante(i, j);
+            //tabgraphe.push_back(T.getGraphe());
+      }
+      }
+  }
+
+
   T.dessiner();
 
 
-
+/*
   PadPlateau cpy = T.sauver();
   cpy.save("/tmp/T.json") ;
-    /*
+
   cpy.load("/tmp/T.json") ;
   std::cout << cpy; */
   return 0 ;

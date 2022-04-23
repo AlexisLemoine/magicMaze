@@ -7,7 +7,7 @@ graphe::graphe()
 }
 
 void graphe::creerGraphe(){
-    std::cout<< xGraphe;
+   // std::cout<< xGraphe;
 }
 
 void graphe::setCoord(int x, int y){
