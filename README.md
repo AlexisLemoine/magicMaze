@@ -1,4 +1,4 @@
-# LifapMagicMazeProjet
+# Projet Magic Maze Lifap6
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://forge.univ-lyon1.fr/p1307768/lifapMagicMazeProjet.git
+git remote add origin https://forge.univ-lyon1.fr/p1307768/projet-magic-maze-lifap6.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://forge.univ-lyon1.fr/p1307768/lifapMagicMazeProjet/-/settings/integrations)
+- [ ] [Set up project integrations](https://forge.univ-lyon1.fr/p1307768/projet-magic-maze-lifap6/-/settings/integrations)
 
 ## Collaborate with your team
 
