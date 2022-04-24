@@ -72,27 +72,34 @@ int main() {
   tuile T(24);
 
   tabgraphe.push_back(T.getGraphe());
-/*
+  T.raffraichirGraphe();
+
   T.tuileSuivante(0, 1);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
   T.tuileSuivante(0,2);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
   T.tuileSuivante(1, 0);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
   T.tuileSuivante(-1, 0);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
   T.tuileSuivante(0,-1);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
 
-*/
-  for (int i = -2;i < 2; i++){
+/*
+  for (int i = -2;i < 3; i++){
       for (int j = -2; j < 3; j++){
           if (!((i ==0)&&(j==0))){
             T.tuileSuivante(i, j);
@@ -100,6 +107,7 @@ int main() {
       }
       }
   }
+  */
 
 
   T.dessiner();

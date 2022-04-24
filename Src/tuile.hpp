@@ -83,6 +83,7 @@ public:
 
     // on associe chaque porte à une couleur
     void associerCouleurs(int nbP);
+    void raffraichirGraphe();
 
     void ajouterAuGraphe();
     graphe getGraphe();

@@ -142,10 +142,7 @@ void tuile::quelMur(){
         toutesCases.fusion(6,9);
         toutesCases.fusion(9,10);
     }
-/*
-    for (unsigned int j = 0; j < l; j++){
-        std::cout<< murs[j] << " ";
-    }*/
+
     for(unsigned int i = 0; i < l; i++) {
         std::random_device rd;
         std::default_random_engine eng(rd());
@@ -156,25 +153,15 @@ void tuile::quelMur(){
         murs[l - i - 1] = murs[index] ;
         murs[index] = tmp ;
     }
-/*
-    for (unsigned int j = 0; j < l; j++){
-        std::cout<< murs[j] << " ";
-    }
-    std::cout << std::endl; */
+
     while (!toutRelies(toutesCases)){
         Mur m(murs[0]);
-        // std::cout << m[0].index() << " " << m[1].index() << " ";
         murs.erase(murs.begin());
         mursPresents[m.index()] = false;
         if(!recherche(m[0].index(), m[1].index())){
             toutesCases.fusion(m[0].index(), m[1].index());
         }
     }
-/*
-    for (unsigned int j = 0; j < murs.size(); j++){
-        std::cout<< murs[j] << " ";
-    }
-    std::cout << std::endl; */
 
     for (int k = 0; k < 16; k++){
         if (!toutesCases.recherche(k, 13)){
@@ -271,17 +258,7 @@ void tuile::quelMur(){
             }
             }
     }
-/*
-    for (unsigned int j = 0; j < 16; j++){
-        std::cout<< boutiques[j] << " ";
-    }
-    std::cout << std::endl;
 
-    for (unsigned int j = 0; j < murs.size(); j++){
-        std::cout<< murs[j] << " ";
-    }
-    std::cout << std::endl;*/
-        //unsigned int L = murs.size();
         unsigned int i = 0;
         while(i < murs.size())
             {
@@ -293,28 +270,7 @@ void tuile::quelMur(){
                     i--;
                 }
                 i++;
-                /*
-                else{
-                    if(!toutesCases.recherche(m[0].index(),13)){
-
-                        if(!toutesCases.recherche(m[1].index(),13))
-                        {
-                            mursPresents[m.index()] = false;
-                            murs.erase(murs.begin()+i);
-                        }
-                    }
-                }
-                */
-            }
-
-        /*for (unsigned int j = 0; j < murs.size(); j++){
-            std::cout<< murs[j] << " ";
         }
-        std::cout << std::endl; */
-
-            //std::cout << std::endl;
-
-
 
 }
 
@@ -339,7 +295,7 @@ bool tuile::toutRelies(Union_find C){
 }
 
 void tuile::objectifP(int x, int y){
-    //if (pile_ou_face() && pile_ou_face()){
+    if (pile_ou_face() && pile_ou_face()){
         nbObjectif++;
         obj = true;
         std::random_device rd;
@@ -363,11 +319,11 @@ void tuile::objectifP(int x, int y){
         objectifNumCase[n] = m;
         caseObjectif = m;
         pad.ajouter_objectif(x, y, Case(m), conversionCouleur(n));
-    //}
+    }
 }
 
 void tuile::sortieP(int x, int y){
-    //if (pile_ou_face() && pile_ou_face()){
+    if (pile_ou_face() && pile_ou_face()){
         nbSortie++;
         sort = true;
         std::random_device rd;
@@ -390,7 +346,7 @@ void tuile::sortieP(int x, int y){
         sortieNum[n] = m;
         caseSortie = m;
         pad.ajouter_sortie(x, y, Case(m), conversionCouleur(n));
-    //}
+    }
 }
 
 Couleur tuile::conversionCouleur(int n){
@@ -466,11 +422,9 @@ int tuile::quellePorte(){
 }
 
 void tuile::quellesCouleurs(int nbPortes){
-    //bool tabCouleurs[5];
     if (classique){
 
         aucune = true;
-        //tabCouleurs[1] = tabCouleurs[2] = tabCouleurs[3] = tabCouleurs[4] = false;
 
         while (nbPortes != 0){
             std::random_device rd;
@@ -561,7 +515,7 @@ void tuile::associerCouleurs(int nbP){
 void tuile::ajouterAuGraphe(){
     int l = tuile_CoorX.size();
     G.setCoord(tuile_CoorX[l-1], tuile_CoorY[l-1]);
-    G.setMur(murs);
+    G.setMur(mursPresents);
 
     if (tabCases[2].existeP){
         G.setPortes2(tabCases[2].couleurP);
@@ -574,11 +528,18 @@ void tuile::ajouterAuGraphe(){
     }
 
     if (obj){
-        G.setObj(caseObjectif, couleurObj);
+        G.setObj(couleurObj, caseObjectif);
     }
     if (sort){
-        G.setSort(caseSortie, couleurSort);
+        G.setSort(couleurSort, caseSortie);
     }
+
+    G.setBoutiques(boutiques);
+}
+
+void tuile::raffraichirGraphe(){
+    graphe G2;
+    G = G2;
 }
 
 graphe tuile::getGraphe(){
