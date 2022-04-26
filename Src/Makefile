@@ -29,6 +29,7 @@ SOURCES += draw.cpp
 SOURCES += tuile.cpp
 SOURCES += union_find.cpp
 SOURCES += graphe.cpp
+SOURCES += plateauetjeu.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

@@ -63,6 +63,11 @@ void graphe::setPortes11(int coul){
     couleurP11 = coul;
 }
 
+void graphe::setPortes13(int coul){
+    existeP13 = true;
+    couleurP13 = coul;
+}
+
 void graphe::setObj(int C, int pos){
     objectif = true;
     couleurObj = C;
@@ -140,12 +145,13 @@ void graphe::tousChemins(){
             }
 
         }
+        /*
         int tmp = cheminsGraphe[i].size();
         std::cout << "case " << i << " : ";
         for (int j =0; j < tmp; j++){
             std:: cout << cheminsGraphe[i][j] << " ";
         }
-        std:: cout<< std::endl;
+        std:: cout<< std::endl; */
     }
 
 }

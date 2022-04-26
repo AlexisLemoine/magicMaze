@@ -44,6 +44,7 @@ public:
     void setPortes2(int coul);
     void setPortes4(int coul);
     void setPortes11(int coul);
+    void setPortes13(int coul);
     void setObj(int C, int pos);
     void setSort(int C, int pos);
     void tousChemins();

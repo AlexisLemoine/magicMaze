@@ -526,6 +526,9 @@ void tuile::ajouterAuGraphe(){
     if (tabCases[11].existeP){
         G.setPortes11(tabCases[11].couleurP);
     }
+    if (tabCases[13].existeP){
+        G.setPortes13(tabCases[13].couleurP);
+    }
 
     if (obj){
         G.setObj(couleurObj, caseObjectif);

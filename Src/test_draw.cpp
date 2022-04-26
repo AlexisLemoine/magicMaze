@@ -1,6 +1,7 @@
 #include "draw.hpp"
 #include "tuile.hpp"
 #include "graphe.hpp"
+#include "plateauetjeu.hpp"
 
 #include <iostream>
 
@@ -109,6 +110,16 @@ int main() {
   }
   */
 
+  plateauEtJeu plateau(tabgraphe);
+
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteGauche(0, 0);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
 
   T.dessiner();
 
