@@ -7,6 +7,7 @@ plateauEtJeu::plateauEtJeu(std::vector<graphe>graphes)
     initialisation(graphes[0]);
 }
 
+// petite fonction pour convertir un entier en une couleur
 Couleur plateauEtJeu::conversionCouleur(int n){
     switch (n){
         case 0 :{return Couleur::AUCUNE;}
@@ -19,6 +20,7 @@ Couleur plateauEtJeu::conversionCouleur(int n){
     }
 }
 
+// on initialise avec le graphe
 void plateauEtJeu::initialisation(graphe G){
     plateau.ajouter_tuile(0, 0);
     plateau.placer_joueur(0, 0, Case(5), Couleur::JAUNE);
@@ -42,15 +44,31 @@ void plateauEtJeu::initialisation(graphe G){
     plateau.ajouter_porte(0, 0, Case(13), conversionCouleur(G.couleurP13));
 }
 
+// fonction impressionnante, mais simple à comprendre
 void plateauEtJeu::ouvrirPorteGauche(int x, int y){
     std::cout<< "Ouverture de la porte gauche de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
-    y--;
-    plateau.ajouter_tuile(x, y);
 
-    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+    int j = 0;
+    int l =  plateauDeGraphe.size();
+
+    // on récupère les deux tuiles qui nous intéressent (celles de part et d'autres de la porte.
+    while((plateauDeGraphe[j].xGraphe != x || plateauDeGraphe[j].yGraphe != y)&&(j <= l++)){
+        j++;
+    }
+    y--;
+
+
+    while((plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y)&&(i <= l++)){
         i++;
     }
+    if ((i == l++)||(!plateauDeGraphe[j].existeP4)){
+        std::cout<< "Impossible d'ouvrir cette porte." << std::endl;
+        return;
+    }
+    plateau.ajouter_tuile(x, y);
+
+    // on utilise tout le long des entiers temporels pour échanger les placements des différents sites et murs.
     bool tmpPorte;
     int tmpCouleur;
     tmpPorte = plateauDeGraphe[i].existeP4;
@@ -141,16 +159,26 @@ void plateauEtJeu::ouvrirPorteGauche(int x, int y){
         }
     }
 }
-
+// les 3 fonctions qui suivent sont identiques, pour chaque porte.
 void plateauEtJeu::ouvrirPorteHaute(int x, int y){
     std::cout<< "Ouverture de la porte haute de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
-    x--;
-    plateau.ajouter_tuile(x, y);
+    int j = 0;
+    int l =  plateauDeGraphe.size();
 
-    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+    while((plateauDeGraphe[j].xGraphe != x || plateauDeGraphe[j].yGraphe != y)&&(j <= l++)){
+        j++;
+    }
+    x--;
+
+    while((plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y)&&(i <= l++)){
         i++;
     }
+    if ((i == l++)||(!plateauDeGraphe[j].existeP2)){
+        std::cout<< "Impossible d'ouvrir cette porte." << std::endl;
+        return;
+    }
+    plateau.ajouter_tuile(x, y);
 
     if (plateauDeGraphe[i].existeP2){
         plateau.ajouter_porte(x, y, Case(2), conversionCouleur(plateauDeGraphe[i].couleurP2));
@@ -187,12 +215,23 @@ void plateauEtJeu::ouvrirPorteHaute(int x, int y){
 void plateauEtJeu::ouvrirPorteDroite(int x, int y){
     std::cout<< "Ouverture de la porte droite de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
-    y++;
-    plateau.ajouter_tuile(x, y);
+    int j = 0;
+    int l =  plateauDeGraphe.size();
 
-    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+    while((plateauDeGraphe[j].xGraphe != x || plateauDeGraphe[j].yGraphe != y)&&(j <= l++)){
+        j++;
+    }
+    y++;
+
+    while((plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y)&&(i <= l++)){
         i++;
     }
+    if ((i == l++)||(!plateauDeGraphe[j].existeP11)){
+        std::cout<< "Impossible d'ouvrir cette porte." << std::endl;
+        return;
+    }
+
+    plateau.ajouter_tuile(x, y);
     bool tmpPorte;
     int tmpCouleur;
     tmpPorte = plateauDeGraphe[i].existeP4;
@@ -287,12 +326,23 @@ void plateauEtJeu::ouvrirPorteDroite(int x, int y){
 void plateauEtJeu::ouvrirPorteBas(int x, int y){
     std::cout<< "Ouverture de la porte basse de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
-    x++;
-    plateau.ajouter_tuile(x, y);
+    int j = 0;
+    int l =  plateauDeGraphe.size();
 
-    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+    while((plateauDeGraphe[j].xGraphe != x || plateauDeGraphe[j].yGraphe != y)&&(j <= l++)){
+        j++;
+    }
+    x++;
+
+    while((plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y)&&(i <= l++)){
         i++;
     }
+    if ((i == l++)||(!plateauDeGraphe[j].existeP13)){
+        std::cout<< "Impossible d'ouvrir cette porte." << std::endl;
+        return;
+    }
+
+    plateau.ajouter_tuile(x, y);
     bool tmpPorte;
     int tmpCouleur;
     tmpPorte = plateauDeGraphe[i].existeP4;

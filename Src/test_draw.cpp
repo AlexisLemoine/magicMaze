@@ -8,37 +8,9 @@
 using namespace MMaze ;
 
 int main() {
-  //PadPlateau pad ;
+
+
 /*
-  pad.ajouter_tuile(0,0) ;
-  pad.ajouter_boutique(0,0,Case(0)) ;
-  pad.ajouter_sortie(0,0, Case(15), Couleur::JAUNE) ;
-  pad.ajouter_mur(0,0,Mur(Case(0), Case(1))) ;
-  pad.ajouter_mur(0,0,Mur(Case(0), Case(4))) ;
-  pad.ajouter_porte(0,0, Case(11), Couleur::JAUNE) ;
-
-  pad.ajouter_tuile(0,1) ;
-  pad.ajouter_sortie(0,1, Case(0), Couleur::VIOLET) ;
-  pad.ajouter_porte(0,1, Case(4), Couleur::AUCUNE) ;
-  pad.ajouter_porte(0,1, Case(11), Couleur::VIOLET) ;
-  pad.ajouter_porte(0,1, Case(13), Couleur::VERT) ;
-  pad.ajouter_mur(0,1, Mur(Case(4), Case(5))) ;
-  pad.ajouter_mur(0,1, Mur(Case(4), Case(8))) ;
-
-  pad.ajouter_tuile(1,0) ;
-  pad.ajouter_porte(1,0,Case(11), Couleur::AUCUNE) ;
-  pad.ajouter_vortex(1,0,Case(6), Couleur::JAUNE) ;
-
-  pad.ajouter_tuile(1,1) ;
-  pad.ajouter_porte(1,1,Case(2), Couleur::AUCUNE) ;
-  pad.ajouter_porte(1,1,Case(4), Couleur::JAUNE) ;
-
-  pad.placer_joueur(0,0,Case(5),Couleur::JAUNE) ;
-  pad.placer_joueur(0,0,Case(6),Couleur::VERT) ;
-  pad.placer_joueur(0,0,Case(9),Couleur::VIOLET) ;
-  pad.placer_joueur(0,0,Case(10),Couleur::ORANGE) ;
-
-
 
 #ifndef NO_CAIRO
   pad.dessiner("/tmp/plateau.svg") ;
@@ -52,21 +24,11 @@ int main() {
   PadPlateau cpy ;
   cpy.load("/tmp/pad.json") ;
   std::cout << cpy << std::endl ;
-
-  // tests ds tuiles
-
-  tuile T1;
-  tuile T2;
-  tuile T3;
-  tuile T4;
-  tuile T5;
-  
-  tuile T6;
-  tuile T7;
-  tuile T8;
-  tuile T9; 
-  tuile T10; 
 */
+
+
+
+   // Décommentez cette partie pour avoir un affichage de tuiles une par une, comme si on mimait une partie.
 
   std::vector<graphe>tabgraphe;
 
@@ -97,15 +59,24 @@ int main() {
   T.tuileSuivante(0,-1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
+<<<<<<< HEAD
   
 
 
   
 /*
+=======
+
+  T.tuileSuivante(1, 2);
+  tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
+
+>>>>>>> c2417aa681cfd95136ead8181cf3a1c6045ce1af
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
+<<<<<<< HEAD
 /*
   for (int i = -2;i < 3; i++){
       for (int j = -2; j < 3; j++){
@@ -116,6 +87,13 @@ int main() {
       }
   }
   */
+=======
+
+
+  T.tuileSuivante(1, 1);
+  tabgraphe.push_back(T.getGraphe());
+  T.raffraichirGraphe();
+>>>>>>> c2417aa681cfd95136ead8181cf3a1c6045ce1af
 
  
 
@@ -145,15 +123,52 @@ int main() {
   plateau.plateau.load("/tmp/jeu.json");
   std::cout << plateau.plateau << std:: endl;
 
+  plateau.ouvrirPorteDroite(-1, 0);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteDroite(0, 1);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteBas(0, 1);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteBas(0, 2);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
 
   T.dessiner();
 
-
-/*
+  // On utilise ici les fonctions json, pour sauvegarder le plateau.
   PadPlateau cpy = T.sauver();
   cpy.save("/tmp/T.json") ;
 
   cpy.load("/tmp/T.json") ;
-  std::cout << cpy; */
+  std::cout << cpy;
+
+// Decommenter cette partie pour obtenir un plateau de taille 7*7. Possibilité de changer la taille du plateau.
+// Ici, on ne stocke que l'affichage. decommenter les lignes sous T.tuileSuivante(i, j) pour stocker les données.
+
+/*
+  std::vector<graphe>tabgraphe;
+
+  tuile T(24);
+    for (int i = -3;i < 4; i++){
+        for (int j = -3; j < 4; j++){
+            if (!((i ==0)&&(j==0))){
+              T.tuileSuivante(i, j);
+              // tabgraphe.push_back(T.getGraphe());
+              // T.raffraichirGraphe();
+        }
+        }
+    }
+    T.dessiner();
+*/
   return 0 ;
 }

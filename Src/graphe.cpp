@@ -124,6 +124,7 @@ void graphe::printShortestDistance(int s,int dest, int v)
 
 }
 
+// on initialise le graphe
 graphe::graphe()
 {
     xGraphe = 0;
@@ -152,11 +153,13 @@ graphe::graphe()
 
 }
 
+// fonction qui créé le graphe des chemins de chaque case à une autre.
 void graphe::creerGraphe(){
 
     tousChemins();
 }
 
+// tous les sets sont là pour récupérer les données de tuile.cpp.
 void graphe::setCoord(int x, int y){
     xGraphe = x;
     yGraphe = y;
@@ -206,7 +209,7 @@ void graphe::setSort(int C, int pos){
     caseSort = pos;
 }
 
-
+// donne toutes les cases qui ne sont pas des boutiques
 int graphe::Case_accesible(){
 
     int count=0;
@@ -223,12 +226,11 @@ int graphe::Case_accesible(){
 }
 
 
-void graphe::tousChemins(){
-   
-     graphe_Counter++;
-    
+// donne toutes les cases accessibles entre chaques cases sur une tuile.
+void graphe::tousChemins(){ 
+
     for (int i = 0 ; i < 16; i++){
-        
+        // si la case n'est pas une boutiques, on regarde quels sont ses voisins
         if (!boutiquesGraphes[i]){
             if (i > 3){
                 bool change = true;
@@ -316,7 +318,7 @@ void graphe::tousChemins(){
 
         int tmp = cheminsGraphe[i].size();
         //std::cout << "case " << i << " : ";
-        for (int j =0; j < tmp; j++){
+        for(int j =0; j < tmp; j++){
          add_edge(adj,i,cheminsGraphe[i][j]);
          // std:: cout << cheminsGraphe[i][j] << " ";
         }
