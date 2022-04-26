@@ -13,7 +13,7 @@ using namespace std;
 
 
 vector<int> adj [16];
- 
+std::vector<graphe>tabgraphe;
 int graphe_Counter=0;
 
 //construre une liste de contiguïté
@@ -100,7 +100,7 @@ void graphe::printShortestDistance(int s,int dest, int v)
 
 	if (BFS(adj, s, dest, v, pred, dist) == false) {
 		cout << "Given source and destination"
-			<< " are not connected";
+            << " are not connected" << std::endl;
 		return;
 	}
 
@@ -112,7 +112,7 @@ void graphe::printShortestDistance(int s,int dest, int v)
 		path.push_back(pred[crawl]);
 		crawl = pred[crawl];
 	}
-
+/*
 	// distance from source is in distance array
 	cout << "Shortest path length is : "
 		<< dist[dest];
@@ -120,7 +120,7 @@ void graphe::printShortestDistance(int s,int dest, int v)
 	// printing path from source to destination
 	cout << "\nPath is::\n";
 	for (int i = path.size() - 1; i >= 0; i--)
-		cout << path[i] << " ";
+        cout << path[i] << " "*/
 
 }
 
@@ -147,6 +147,7 @@ graphe::graphe()
         cheminsGraphe[i].clear();
          adj[i].clear();
     }
+    int graphe_num=0;
   
 
 }
@@ -224,7 +225,7 @@ int graphe::Case_accesible(){
 
 void graphe::tousChemins(){
    
-     
+     graphe_Counter++;
     
     for (int i = 0 ; i < 16; i++){
         
@@ -233,6 +234,7 @@ void graphe::tousChemins(){
                 bool change = true;
                 int n = i;
                 while ((change)&&(n > 3)){
+
                     Case c(n);
                     Mur m(c, c.haut());
                     if (!mursGraphes[m.index()]){
@@ -274,6 +276,26 @@ void graphe::tousChemins(){
                     n--;
                 }
             }
+      /*  if(graphe_Counter>1){
+            if((i%4)==0){
+                cout<<"ypo";
+                bool change = true;
+                int n = i;
+                while (change && ((n%4 == 0))){
+                    Case c(n);
+                    Mur m(c, c.gauche());
+                    if (!mursGraphes[m.index()]){
+                        cheminsGraphe[i].push_back(c.gauche().index());
+                    }
+                    else{
+                        change = false;
+                    }
+                    n--;
+                }
+            }
+           
+
+            }*/
             if (!(i%4 == 3)){
                 bool change = true;
                 int n = i;
@@ -295,12 +317,15 @@ void graphe::tousChemins(){
         int tmp = cheminsGraphe[i].size();
         //std::cout << "case " << i << " : ";
         for (int j =0; j < tmp; j++){
-        add_edge(adj,i,cheminsGraphe[i][j]);
+         add_edge(adj,i,cheminsGraphe[i][j]);
          // std:: cout << cheminsGraphe[i][j] << " ";
         }
-        std:: cout<< std::endl;
+        //std:: cout<< std::endl;
     }
-      displayAdjList(adj,16);
+    
+
+    //displayAdjList(adj,16);
+
     
 
 }

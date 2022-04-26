@@ -73,11 +73,13 @@ int main() {
   tuile T(24);
 
   tabgraphe.push_back(T.getGraphe());
-  
+   graphe t1=T.getGraphe();
+
   T.raffraichirGraphe();
 
   T.tuileSuivante(0, 1);
   tabgraphe.push_back(T.getGraphe());
+
   T.raffraichirGraphe();
 
   T.tuileSuivante(0,2);
@@ -95,12 +97,14 @@ int main() {
   T.tuileSuivante(0,-1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
+  
 
+
+  
+/*
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-
-  
 
 /*
   for (int i = -2;i < 3; i++){
@@ -112,7 +116,9 @@ int main() {
       }
   }
   */
-/*
+
+ 
+
   plateauEtJeu plateau(tabgraphe);
 
   plateau.plateau.save("/tmp/jeu.json");
@@ -123,7 +129,23 @@ int main() {
   plateau.plateau.save("/tmp/jeu.json");
   plateau.plateau.load("/tmp/jeu.json");
   std::cout << plateau.plateau << std:: endl;
-*/
+
+  plateau.ouvrirPorteHaute(0, 0);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteDroite(0, 0);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+  plateau.ouvrirPorteBas(0, 0);
+  plateau.plateau.save("/tmp/jeu.json");
+  plateau.plateau.load("/tmp/jeu.json");
+  std::cout << plateau.plateau << std:: endl;
+
+
   T.dessiner();
 
 

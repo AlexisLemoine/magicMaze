@@ -43,14 +43,14 @@ void plateauEtJeu::initialisation(graphe G){
 }
 
 void plateauEtJeu::ouvrirPorteGauche(int x, int y){
-    int i = 1;
+    std::cout<< "Ouverture de la porte gauche de la tuile (" << x << ", " << y << ") :" << std ::endl;
+    int i = 0;
     y--;
     plateau.ajouter_tuile(x, y);
 
-    while(plateauDeGraphe[i].xGraphe != x && plateauDeGraphe[i].yGraphe != y){
+    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
         i++;
     }
-    std::cout<< i;
     bool tmpPorte;
     int tmpCouleur;
     tmpPorte = plateauDeGraphe[i].existeP4;
@@ -117,5 +117,271 @@ void plateauEtJeu::ouvrirPorteGauche(int x, int y){
             plateau.ajouter_mur(x, y, m);
         }
     }
+
+    bool tmpBoutiques[16];
+    for (int j = 0; j < 16; j++){
+        tmpBoutiques[j] = false;
+    }
+
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            int tmp = c.tourne(1).index();
+            tmpBoutiques[tmp] = true;
+        }
+    }
+
+    for (int j = 0; j < 16; j++){
+        plateauDeGraphe[i].boutiquesGraphes[j] = tmpBoutiques[j];
+    }
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            plateau.ajouter_boutique(x, y, c);
+        }
+    }
 }
 
+void plateauEtJeu::ouvrirPorteHaute(int x, int y){
+    std::cout<< "Ouverture de la porte haute de la tuile (" << x << ", " << y << ") :" << std ::endl;
+    int i = 0;
+    x--;
+    plateau.ajouter_tuile(x, y);
+
+    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+        i++;
+    }
+
+    if (plateauDeGraphe[i].existeP2){
+        plateau.ajouter_porte(x, y, Case(2), conversionCouleur(plateauDeGraphe[i].couleurP2));
+    }
+    if (plateauDeGraphe[i].existeP4){
+        plateau.ajouter_porte(x, y, Case(4), conversionCouleur(plateauDeGraphe[i].couleurP4));
+    }
+    if (plateauDeGraphe[i].existeP11){
+        plateau.ajouter_porte(x, y, Case(11), conversionCouleur(plateauDeGraphe[i].couleurP11));
+    }
+    if (plateauDeGraphe[i].existeP13){
+        plateau.ajouter_porte(x, y, Case(13), conversionCouleur(plateauDeGraphe[i].couleurP13));
+    }
+    if (plateauDeGraphe[i].objectif){
+        plateau.ajouter_objectif(x, y, Case(plateauDeGraphe[i].caseObj), conversionCouleur(plateauDeGraphe[i].couleurObj));
+    }
+    if (plateauDeGraphe[i].sortie){
+        plateau.ajouter_sortie(x, y, Case(plateauDeGraphe[i].caseSort), conversionCouleur(plateauDeGraphe[i].couleurSort));
+    }
+    for (int j = 0; j < 24; j++){
+        if (plateauDeGraphe[i].mursGraphes[j]){
+            Mur m(j);
+            plateau.ajouter_mur(x, y, m);
+        }
+    }
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            plateau.ajouter_boutique(x, y, c);
+        }
+    }
+}
+
+void plateauEtJeu::ouvrirPorteDroite(int x, int y){
+    std::cout<< "Ouverture de la porte droite de la tuile (" << x << ", " << y << ") :" << std ::endl;
+    int i = 0;
+    y++;
+    plateau.ajouter_tuile(x, y);
+
+    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+        i++;
+    }
+    bool tmpPorte;
+    int tmpCouleur;
+    tmpPorte = plateauDeGraphe[i].existeP4;
+    tmpCouleur = plateauDeGraphe[i].couleurP4;
+
+    plateauDeGraphe[i].existeP4 =  plateauDeGraphe[i].existeP13;
+    plateauDeGraphe[i].existeP13 =  plateauDeGraphe[i].existeP11;
+    plateauDeGraphe[i].existeP11 =  plateauDeGraphe[i].existeP2;
+    plateauDeGraphe[i].existeP2 =  tmpPorte;
+
+    plateauDeGraphe[i].couleurP4 = plateauDeGraphe[i].couleurP13;
+    plateauDeGraphe[i].couleurP13 = plateauDeGraphe[i].couleurP11;
+    plateauDeGraphe[i].couleurP11 = plateauDeGraphe[i].couleurP2;
+    plateauDeGraphe[i].couleurP2 = tmpCouleur;
+
+    if (plateauDeGraphe[i].existeP2){
+        plateau.ajouter_porte(x, y, Case(2), conversionCouleur(plateauDeGraphe[i].couleurP2));
+    }
+    if (plateauDeGraphe[i].existeP4){
+        plateau.ajouter_porte(x, y, Case(4), conversionCouleur(plateauDeGraphe[i].couleurP4));
+    }
+    if (plateauDeGraphe[i].existeP11){
+        plateau.ajouter_porte(x, y, Case(11), conversionCouleur(plateauDeGraphe[i].couleurP11));
+    }
+    if (plateauDeGraphe[i].existeP13){
+        plateau.ajouter_porte(x, y, Case(13), conversionCouleur(plateauDeGraphe[i].couleurP13));
+    }
+
+    if (plateauDeGraphe[i].objectif){
+        Case tmp(plateauDeGraphe[i].caseObj);
+        plateauDeGraphe[i].caseObj = tmp.tourne(3).index();
+    }
+    if (plateauDeGraphe[i].sortie){
+        Case tmp(plateauDeGraphe[i].caseSort);
+        plateauDeGraphe[i].caseSort = tmp.tourne(3).index();
+    }
+
+    if (plateauDeGraphe[i].objectif){
+        plateau.ajouter_objectif(x, y, Case(plateauDeGraphe[i].caseObj), conversionCouleur(plateauDeGraphe[i].couleurObj));
+    }
+    if (plateauDeGraphe[i].sortie){
+        plateau.ajouter_sortie(x, y, Case(plateauDeGraphe[i].caseSort), conversionCouleur(plateauDeGraphe[i].couleurSort));
+    }
+
+    bool tmpMur[24];
+    for (int j = 0; j < 24; j++){
+        tmpMur[j] = false;
+    }
+
+    for (int j = 0; j < 24; j++){
+        if (plateauDeGraphe[i].mursGraphes[j]){
+            Mur m(j);
+            int tmp = m.tourne(3).index();
+            tmpMur[tmp] = true;
+        }
+    }
+
+    for (int j = 0; j < 24; j++){
+        plateauDeGraphe[i].mursGraphes[j] = tmpMur[j];
+    }
+    for (int j = 0; j < 24; j++){
+        if (plateauDeGraphe[i].mursGraphes[j]){
+            Mur m(j);
+            plateau.ajouter_mur(x, y, m);
+        }
+    }
+
+    bool tmpBoutiques[16];
+    for (int j = 0; j < 16; j++){
+        tmpBoutiques[j] = false;
+    }
+
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            int tmp = c.tourne(3).index();
+            tmpBoutiques[tmp] = true;
+        }
+    }
+
+    for (int j = 0; j < 16; j++){
+        plateauDeGraphe[i].boutiquesGraphes[j] = tmpBoutiques[j];
+    }
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            plateau.ajouter_boutique(x, y, c);
+        }
+    }
+}
+
+void plateauEtJeu::ouvrirPorteBas(int x, int y){
+    std::cout<< "Ouverture de la porte basse de la tuile (" << x << ", " << y << ") :" << std ::endl;
+    int i = 0;
+    x++;
+    plateau.ajouter_tuile(x, y);
+
+    while(plateauDeGraphe[i].xGraphe != x || plateauDeGraphe[i].yGraphe != y){
+        i++;
+    }
+    bool tmpPorte;
+    int tmpCouleur;
+    tmpPorte = plateauDeGraphe[i].existeP4;
+    tmpCouleur = plateauDeGraphe[i].couleurP4;
+
+    plateauDeGraphe[i].existeP4 =  plateauDeGraphe[i].existeP11;
+    plateauDeGraphe[i].existeP11 =  tmpPorte;
+    tmpPorte =  plateauDeGraphe[i].existeP2;
+    plateauDeGraphe[i].existeP2 =  plateauDeGraphe[i].existeP13;
+    plateauDeGraphe[i].existeP13 = tmpPorte;
+
+    plateauDeGraphe[i].couleurP4 = plateauDeGraphe[i].couleurP11;
+    plateauDeGraphe[i].couleurP11 = tmpCouleur;
+    tmpCouleur = plateauDeGraphe[i].couleurP2;
+    plateauDeGraphe[i].couleurP2 = plateauDeGraphe[i].couleurP13;
+    plateauDeGraphe[i].couleurP13 =tmpCouleur;
+
+    if (plateauDeGraphe[i].existeP2){
+        plateau.ajouter_porte(x, y, Case(2), conversionCouleur(plateauDeGraphe[i].couleurP2));
+    }
+    if (plateauDeGraphe[i].existeP4){
+        plateau.ajouter_porte(x, y, Case(4), conversionCouleur(plateauDeGraphe[i].couleurP4));
+    }
+    if (plateauDeGraphe[i].existeP11){
+        plateau.ajouter_porte(x, y, Case(11), conversionCouleur(plateauDeGraphe[i].couleurP11));
+    }
+    if (plateauDeGraphe[i].existeP13){
+        plateau.ajouter_porte(x, y, Case(13), conversionCouleur(plateauDeGraphe[i].couleurP13));
+    }
+
+    if (plateauDeGraphe[i].objectif){
+        Case tmp(plateauDeGraphe[i].caseObj);
+        plateauDeGraphe[i].caseObj = tmp.tourne(2).index();
+    }
+    if (plateauDeGraphe[i].sortie){
+        Case tmp(plateauDeGraphe[i].caseSort);
+        plateauDeGraphe[i].caseSort = tmp.tourne(2).index();
+    }
+
+    if (plateauDeGraphe[i].objectif){
+        plateau.ajouter_objectif(x, y, Case(plateauDeGraphe[i].caseObj), conversionCouleur(plateauDeGraphe[i].couleurObj));
+    }
+    if (plateauDeGraphe[i].sortie){
+        plateau.ajouter_sortie(x, y, Case(plateauDeGraphe[i].caseSort), conversionCouleur(plateauDeGraphe[i].couleurSort));
+    }
+
+    bool tmpMur[24];
+    for (int j = 0; j < 24; j++){
+        tmpMur[j] = false;
+    }
+
+    for (int j = 0; j < 24; j++){
+        if (plateauDeGraphe[i].mursGraphes[j]){
+            Mur m(j);
+            int tmp = m.tourne(2).index();
+            tmpMur[tmp] = true;
+        }
+    }
+
+    for (int j = 0; j < 24; j++){
+        plateauDeGraphe[i].mursGraphes[j] = tmpMur[j];
+    }
+    for (int j = 0; j < 24; j++){
+        if (plateauDeGraphe[i].mursGraphes[j]){
+            Mur m(j);
+            plateau.ajouter_mur(x, y, m);
+        }
+    }
+
+    bool tmpBoutiques[16];
+    for (int j = 0; j < 16; j++){
+        tmpBoutiques[j] = false;
+    }
+
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            int tmp = c.tourne(2).index();
+            tmpBoutiques[tmp] = true;
+        }
+    }
+
+    for (int j = 0; j < 16; j++){
+        plateauDeGraphe[i].boutiquesGraphes[j] = tmpBoutiques[j];
+    }
+    for (int j = 0; j < 16; j++){
+        if (plateauDeGraphe[i].boutiquesGraphes[j]){
+            Case c(j);
+            plateau.ajouter_boutique(x, y, c);
+        }
+    }
+}

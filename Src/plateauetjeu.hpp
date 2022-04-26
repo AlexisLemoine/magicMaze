@@ -13,6 +13,10 @@ public:
     Couleur conversionCouleur(int n);
     void initialisation(graphe G);
     void ouvrirPorteGauche(int x, int y);
+    void ouvrirPorteHaute(int x, int y);
+    void ouvrirPorteDroite(int x, int y);
+    void ouvrirPorteBas(int x, int y);
+
 
 };
 
