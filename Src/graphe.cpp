@@ -5,12 +5,16 @@
 #include <queue>
 #include <fstream>
 #include <limits>
- #include <bits/stdc++.h>
+#include <bits/stdc++.h>
+
+
 
 using namespace std;
 
 
 vector<int> adj [16];
+ 
+int graphe_Counter=0;
 
 //construre une liste de contiguïté
 void graphe:: add_edge(vector<int> adj[], int src, int dest)
@@ -87,11 +91,8 @@ bool graphe:: BFS(vector<int> adj[], int src, int dest, int v,
 
 // utility function to print the shortest distance
 // between source vertex and destination vertex
-void graphe::printShortestDistance(int s,
-						int dest, int v)
+void graphe::printShortestDistance(int s,int dest, int v)
 {
-    
-
 	// predecessor[i] array stores predecessor of
 	// i and distance array stores distance of i
 	// from s
@@ -122,6 +123,7 @@ void graphe::printShortestDistance(int s,
 		cout << path[i] << " ";
 
 }
+
 graphe::graphe()
 {
     xGraphe = 0;
@@ -143,11 +145,14 @@ graphe::graphe()
     caseSort = -1;
     for (int i = 0 ; i < 16; i++){
         cheminsGraphe[i].clear();
+         adj[i].clear();
     }
+  
 
 }
 
 void graphe::creerGraphe(){
+
     tousChemins();
 }
 
@@ -219,8 +224,8 @@ int graphe::Case_accesible(){
 
 void graphe::tousChemins(){
    
+     
     
-
     for (int i = 0 ; i < 16; i++){
         
         if (!boutiquesGraphes[i]){
@@ -296,13 +301,7 @@ void graphe::tousChemins(){
         std:: cout<< std::endl;
     }
       displayAdjList(adj,16);
-
     
-
-
-
-    
- 
 
 }
 

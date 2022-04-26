@@ -73,8 +73,9 @@ int main() {
   tuile T(24);
 
   tabgraphe.push_back(T.getGraphe());
+  
   T.raffraichirGraphe();
-/*
+
   T.tuileSuivante(0, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
@@ -98,7 +99,9 @@ int main() {
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-*/
+
+  
+
 /*
   for (int i = -2;i < 3; i++){
       for (int j = -2; j < 3; j++){
