@@ -99,7 +99,7 @@ void graphe::printShortestDistance(int s,
 
 	if (BFS(adj, s, dest, v, pred, dist) == false) {
 		cout << "Given source and destination"
-			<< " are not connected";
+            << " are not connected" << std::endl;
 		return;
 	}
 
@@ -111,7 +111,7 @@ void graphe::printShortestDistance(int s,
 		path.push_back(pred[crawl]);
 		crawl = pred[crawl];
 	}
-
+/*
 	// distance from source is in distance array
 	cout << "Shortest path length is : "
 		<< dist[dest];
@@ -119,7 +119,7 @@ void graphe::printShortestDistance(int s,
 	// printing path from source to destination
 	cout << "\nPath is::\n";
 	for (int i = path.size() - 1; i >= 0; i--)
-		cout << path[i] << " ";
+        cout << path[i] << " "*/
 
 }
 graphe::graphe()
@@ -290,12 +290,12 @@ void graphe::tousChemins(){
         int tmp = cheminsGraphe[i].size();
         //std::cout << "case " << i << " : ";
         for (int j =0; j < tmp; j++){
-        add_edge(adj,i,cheminsGraphe[i][j]);
+        //add_edge(adj,i,cheminsGraphe[i][j]);
          // std:: cout << cheminsGraphe[i][j] << " ";
         }
-        std:: cout<< std::endl;
+        //std:: cout<< std::endl;
     }
-      displayAdjList(adj,16);
+      //displayAdjList(adj,16);
 
     
 
