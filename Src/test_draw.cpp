@@ -59,42 +59,18 @@ int main() {
   T.tuileSuivante(0,-1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-<<<<<<< HEAD
   
-
-
-  
-/*
-=======
-
   T.tuileSuivante(1, 2);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
->>>>>>> c2417aa681cfd95136ead8181cf3a1c6045ce1af
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
-<<<<<<< HEAD
-/*
-  for (int i = -2;i < 3; i++){
-      for (int j = -2; j < 3; j++){
-          if (!((i ==0)&&(j==0))){
-            T.tuileSuivante(i, j);
-            //tabgraphe.push_back(T.getGraphe());
-      }
-      }
-  }
-  */
-=======
-
-
   T.tuileSuivante(1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
->>>>>>> c2417aa681cfd95136ead8181cf3a1c6045ce1af
-
  
 
   plateauEtJeu plateau(tabgraphe);
