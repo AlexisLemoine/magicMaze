@@ -1,7 +1,7 @@
 #ifndef GRAPHE_HPP
 #define GRAPHE_HPP
 
-#include<vector>
+#include <vector>
 #include "draw.hpp"
 using namespace MMaze ;
 
@@ -48,6 +48,14 @@ public:
     void setObj(int C, int pos);
     void setSort(int C, int pos);
     void tousChemins();
+    int Case_accesible();
+    void add_edge(std::vector<int> adj[], int src, int dest);
+    void displayAdjList(std::vector<int> adj[], int v);
+      bool BFS(std::vector<int> adj[], int src, int dest, int v,
+		int pred[], int dist[]);
+    void printShortestDistance( int s,
+						int dest, int v);
+    
 
 };
 

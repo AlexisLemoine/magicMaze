@@ -72,6 +72,8 @@ tuile::tuile(int n):Union_find(n){
 
     ajouterAuGraphe();
     G.creerGraphe();
+    G.printShortestDistance(2,13,16);
+   
 
     murs.clear();
 }

@@ -74,7 +74,7 @@ int main() {
 
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-
+/*
   T.tuileSuivante(0, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
@@ -98,7 +98,7 @@ int main() {
   T.tuileSuivante(-1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-
+*/
 /*
   for (int i = -2;i < 3; i++){
       for (int j = -2; j < 3; j++){
@@ -109,7 +109,7 @@ int main() {
       }
   }
   */
-
+/*
   plateauEtJeu plateau(tabgraphe);
 
   plateau.plateau.save("/tmp/jeu.json");
@@ -120,7 +120,7 @@ int main() {
   plateau.plateau.save("/tmp/jeu.json");
   plateau.plateau.load("/tmp/jeu.json");
   std::cout << plateau.plateau << std:: endl;
-
+*/
   T.dessiner();
 
 
