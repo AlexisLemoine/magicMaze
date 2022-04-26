@@ -126,8 +126,6 @@ int main() {
   cpy.load("/tmp/T.json") ;
   std::cout << cpy;
 
-
-
 // Decommenter cette partie pour obtenir un plateau de taille 7*7. Possibilité de changer la taille du plateau.
 // Ici, on ne stocke que l'affichage. decommenter les lignes sous T.tuileSuivante(i, j) pour stocker les données.
 

@@ -5,7 +5,8 @@
 #include <functional>
 #include <chrono>
 
-
+// a la création d'une tuile, on initialise les données avant de les utiliser
+// on appelle à la fin de la fonction les fonctions qui vont déterminer la structure de la tuile.
 tuile::tuile(int n):Union_find(n){
     pad.ajouter_tuile(0, 0);
     tuile_CoorX.push_back(0);
@@ -78,6 +79,7 @@ tuile::tuile(int n):Union_find(n){
     murs.clear();
 }
 
+// même principe que pour la création d'une tuile
 void tuile::tuileSuivante(int x, int y){
     pad.ajouter_tuile(x, y);
     tuile_CoorX.push_back(x);
@@ -127,7 +129,7 @@ void tuile::tuileSuivante(int x, int y){
     murs.clear();
 
 }
-
+// choisit quels murs sont placés et où
 void tuile::quelMur(){
     unsigned int l;
     if (classique){
@@ -137,6 +139,7 @@ void tuile::quelMur(){
         l = 20;
         }
 
+    // on commence par créer un union_find de toutes les cases
     Union_find toutesCases(16);
 
     if (!classique){
@@ -145,6 +148,7 @@ void tuile::quelMur(){
         toutesCases.fusion(9,10);
     }
 
+    // on mélange le tableau de murs
     for(unsigned int i = 0; i < l; i++) {
         std::random_device rd;
         std::default_random_engine eng(rd());
@@ -156,6 +160,7 @@ void tuile::quelMur(){
         murs[index] = tmp ;
     }
 
+    // on enlève les murs tant qu'on a pas tous les sites de reliés.
     while (!toutRelies(toutesCases)){
         Mur m(murs[0]);
         murs.erase(murs.begin());
@@ -165,6 +170,7 @@ void tuile::quelMur(){
         }
     }
 
+    // on place les boutiques
     for (int k = 0; k < 16; k++){
         if (!toutesCases.recherche(k, 13)){
             boutiques[k] = true;
@@ -172,6 +178,7 @@ void tuile::quelMur(){
     }
 
     bool change = false;
+    // on rajoute des murs sur les cases inutiles
     while (!change){
         change = true;
 
@@ -216,7 +223,7 @@ void tuile::quelMur(){
                         cmptr++;
                     }
                 }
-
+                // si on a trois murs, on rajoute le dernier. On commence par chercher lequel il manque.
                 if (cmptr == 3){
                     bool construit = false;
                     if ((!construit)&&!(i < 4)){
@@ -261,7 +268,9 @@ void tuile::quelMur(){
             }
     }
 
+
         unsigned int i = 0;
+        // on enlève les murs entre deux boutiques
         while(i < murs.size())
             {
                 Mur m(murs[i]);
@@ -275,7 +284,7 @@ void tuile::quelMur(){
         }
 
 }
-
+// teste si tous les sites sont reliès dans la tuile
 bool tuile::toutRelies(Union_find C){
     int c = 13;
     if (tabCases[2].existeP && !(C.recherche(2, c))){
@@ -296,7 +305,9 @@ bool tuile::toutRelies(Union_find C){
     return true;
 }
 
+// si on a un objectif, alors on le place sur la tuile. On le place avant de définir les boutiques et murs
 void tuile::objectifP(int x, int y){
+    // 1/16 chance de placer un objectif sur une tuile
     if (pile_ou_face() && pile_ou_face()){
         nbObjectif++;
         obj = true;
@@ -313,7 +324,7 @@ void tuile::objectifP(int x, int y){
         std::uniform_int_distribution<int> distr2(0, 15);
 
         int m = distr2(eng);
-
+        // on teste qu'on ne soit pas sur une porte
         while (tabCases[m].existeP == true){
             m = distr2(eng);
         }
@@ -324,7 +335,9 @@ void tuile::objectifP(int x, int y){
     }
 }
 
+// même principe que pour les objectifs, juste au dessus
 void tuile::sortieP(int x, int y){
+    // 1/16 chance d'avoir une sortie sur la tuile
     if (pile_ou_face() && pile_ou_face()){
         nbSortie++;
         sort = true;
@@ -340,7 +353,7 @@ void tuile::sortieP(int x, int y){
         std::uniform_int_distribution<int> distr2(0, 15);
 
         int m = distr2(eng);
-
+        // on teste qu'on ne soit pas sur une porte
         while ((tabCases[m].existeP == true)||(m == objectifNumCase[n])){
             m = distr2(eng);
         }
@@ -351,6 +364,7 @@ void tuile::sortieP(int x, int y){
     }
 }
 
+// petite fonction qui convertit un entier en une couleur
 Couleur tuile::conversionCouleur(int n){
     switch (n){
         case 0 :{return Couleur::AUCUNE;}
@@ -363,6 +377,7 @@ Couleur tuile::conversionCouleur(int n){
     }
 }
 
+// place les objets nécessaires sur le padplateau
 void tuile::ajouterFonctionPad(int x, int y){
     for (int i =0; i < 16; i++){
         if (tabCases[i].existeP){
@@ -381,18 +396,20 @@ void tuile::ajouterFonctionPad(int x, int y){
 
 }
 
+// affiche le plateau
 void tuile::dessiner(){
 
     std::cout << pad << std::endl ;
 
 }
 
-
+// détermine quelles portes sont présentes sur la tuile
 int tuile::quellePorte(){
     bool porte[3];
     for (int j = 0; j < 3; j++){
         porte[j] = false;
     }
+    // on choisit au hasard le nombre de portes entre 1 et 3, puis on détermine leurs places
     std::random_device rd;
     std::default_random_engine eng(rd());
     std::uniform_int_distribution<int> distr(1, 3);
@@ -423,6 +440,7 @@ int tuile::quellePorte(){
     return nbP;
 }
 
+// on choisit les couleurs des portes
 void tuile::quellesCouleurs(int nbPortes){
     if (classique){
 
@@ -456,6 +474,7 @@ void tuile::quellesCouleurs(int nbPortes){
     }
 }
 
+// on connait le nombre de portes et leurs couleurs, on associe les deux.
 void tuile::associerCouleurs(int nbP){
     int tab[4];
     int i = 0;
@@ -514,6 +533,7 @@ void tuile::associerCouleurs(int nbP){
     }
 }
 
+// on récupère toutes les données qui nous intéressent pour les graphes et la gestion d'un plateau de jeu.
 void tuile::ajouterAuGraphe(){
     int l = tuile_CoorX.size();
     G.setCoord(tuile_CoorX[l-1], tuile_CoorY[l-1]);
@@ -542,19 +562,23 @@ void tuile::ajouterAuGraphe(){
     G.setBoutiques(boutiques);
 }
 
+// on réinitialise le graphe
 void tuile::raffraichirGraphe(){
     graphe G2;
     G = G2;
 }
 
+// onrecupère le graphe
 graphe tuile::getGraphe(){
     return G;
 }
 
+// on récupère le plateau
 PadPlateau tuile::sauver(){
     return pad;
 }
 
+// 1 chance sur 2
 bool tuile::pile_ou_face() {
   //lancer la piece
   return m_piece(m_random) ;

@@ -7,6 +7,7 @@ plateauEtJeu::plateauEtJeu(std::vector<graphe>graphes)
     initialisation(graphes[0]);
 }
 
+// petite fonction pour convertir un entier en une couleur
 Couleur plateauEtJeu::conversionCouleur(int n){
     switch (n){
         case 0 :{return Couleur::AUCUNE;}
@@ -19,6 +20,7 @@ Couleur plateauEtJeu::conversionCouleur(int n){
     }
 }
 
+// on initialise avec le graphe
 void plateauEtJeu::initialisation(graphe G){
     plateau.ajouter_tuile(0, 0);
     plateau.placer_joueur(0, 0, Case(5), Couleur::JAUNE);
@@ -42,6 +44,7 @@ void plateauEtJeu::initialisation(graphe G){
     plateau.ajouter_porte(0, 0, Case(13), conversionCouleur(G.couleurP13));
 }
 
+// fonction impressionnante, mais simple à comprendre
 void plateauEtJeu::ouvrirPorteGauche(int x, int y){
     std::cout<< "Ouverture de la porte gauche de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
@@ -49,6 +52,7 @@ void plateauEtJeu::ouvrirPorteGauche(int x, int y){
     int j = 0;
     int l =  plateauDeGraphe.size();
 
+    // on récupère les deux tuiles qui nous intéressent (celles de part et d'autres de la porte.
     while((plateauDeGraphe[j].xGraphe != x || plateauDeGraphe[j].yGraphe != y)&&(j <= l++)){
         j++;
     }
@@ -64,6 +68,7 @@ void plateauEtJeu::ouvrirPorteGauche(int x, int y){
     }
     plateau.ajouter_tuile(x, y);
 
+    // on utilise tout le long des entiers temporels pour échanger les placements des différents sites et murs.
     bool tmpPorte;
     int tmpCouleur;
     tmpPorte = plateauDeGraphe[i].existeP4;
@@ -154,7 +159,7 @@ void plateauEtJeu::ouvrirPorteGauche(int x, int y){
         }
     }
 }
-
+// les 3 fonctions qui suivent sont identiques, pour chaque porte.
 void plateauEtJeu::ouvrirPorteHaute(int x, int y){
     std::cout<< "Ouverture de la porte haute de la tuile (" << x << ", " << y << ") :" << std ::endl;
     int i = 0;
