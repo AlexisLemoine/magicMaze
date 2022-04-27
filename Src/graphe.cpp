@@ -99,8 +99,8 @@ void graphe::printShortestDistance(int s,int dest, int v)
 	int pred[v], dist[v];
 
 	if (BFS(adj, s, dest, v, pred, dist) == false) {
-		cout << "Given source and destination"
-            << " are not connected" << std::endl;
+		cout << "lA Source et la destination ne sont pas connecté"
+            << std::endl;
 		return;
 	}
 
@@ -112,15 +112,19 @@ void graphe::printShortestDistance(int s,int dest, int v)
 		path.push_back(pred[crawl]);
 		crawl = pred[crawl];
 	}
-/*
+
 	// distance from source is in distance array
-	cout << "Shortest path length is : "
+	cout << "La longeur du plus court chemin est : "
 		<< dist[dest];
 
 	// printing path from source to destination
-	cout << "\nPath is::\n";
-	for (int i = path.size() - 1; i >= 0; i--)
-        cout << path[i] << " "*/
+	cout << "\nLe plus Court chemin est::   ";
+	for (int i = path.size() - 1; i >= 0; i--){
+        cout << path[i] << " ";
+    }
+
+    cout<<endl;
+
 
 }
 
@@ -278,26 +282,10 @@ void graphe::tousChemins(){
                     n--;
                 }
             }
-      /*  if(graphe_Counter>1){
-            if((i%4)==0){
-                cout<<"ypo";
-                bool change = true;
-                int n = i;
-                while (change && ((n%4 == 0))){
-                    Case c(n);
-                    Mur m(c, c.gauche());
-                    if (!mursGraphes[m.index()]){
-                        cheminsGraphe[i].push_back(c.gauche().index());
-                    }
-                    else{
-                        change = false;
-                    }
-                    n--;
-                }
-            }
+     
            
 
-            }*/
+            
             if (!(i%4 == 3)){
                 bool change = true;
                 int n = i;
@@ -317,16 +305,16 @@ void graphe::tousChemins(){
         }
 
         int tmp = cheminsGraphe[i].size();
-        //std::cout << "case " << i << " : ";
+         //std::cout << "case " << i << " : ";
         for(int j =0; j < tmp; j++){
          add_edge(adj,i,cheminsGraphe[i][j]);
-         // std:: cout << cheminsGraphe[i][j] << " ";
+          //std:: cout << cheminsGraphe[i][j] << " ";
         }
         //std:: cout<< std::endl;
     }
     
 
-    //displayAdjList(adj,16);
+    displayAdjList(adj,16);
 
     
 
