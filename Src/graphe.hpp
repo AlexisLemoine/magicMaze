@@ -19,6 +19,7 @@ public:
     bool mursGraphes[24];
     bool boutiquesGraphes[16];
     std::vector<int> cheminsGraphe[16];
+    std::vector<int>adj[16];
     bool existeP2;
     int couleurP2;
     bool existeP4;

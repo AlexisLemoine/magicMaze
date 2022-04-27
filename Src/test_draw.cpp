@@ -29,7 +29,7 @@ int main() {
 
 
    // Décommentez cette partie pour avoir un affichage de tuiles une par une, comme si on mimait une partie.
-
+/*
   std::vector<graphe>tabgraphe;
 
   tuile T(24);
@@ -59,14 +59,7 @@ int main() {
   T.tuileSuivante(0,-1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
-<<<<<<< HEAD
 
-
-
-=======
-  
->>>>>>> 97cbeff57834ede2a62f5b30d2357f5eec15a0f1
-  T.tuileSuivante(1, 2);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
@@ -74,21 +67,12 @@ int main() {
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
-<<<<<<< HEAD
-
-
 
   T.tuileSuivante(1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
 
-=======
-  T.tuileSuivante(1, 1);
-  tabgraphe.push_back(T.getGraphe());
-  T.raffraichirGraphe();
->>>>>>> 97cbeff57834ede2a62f5b30d2357f5eec15a0f1
- 
 
   plateauEtJeu plateau(tabgraphe);
 
@@ -144,7 +128,7 @@ int main() {
 
   cpy.load("/tmp/T.json") ;
   std::cout << cpy;
-
+*/
 // Decommenter cette partie pour obtenir un plateau de taille 7*7. Possibilité de changer la taille du plateau.
 // Ici, on ne stocke que l'affichage. decommenter les lignes sous T.tuileSuivante(i, j) pour stocker les données.
 
@@ -163,5 +147,28 @@ int main() {
     }
     T.dessiner();
 */
+
+  //Pour deux tuile on afficher leur graphe et leur plus court chemin   
+  std::vector<graphe>tabgraphe;
+ 
+  tuile T(24);
+
+  tabgraphe.push_back(T.getGraphe());
+  tabgraphe[0].displayAdjList(tabgraphe[0].adj,16);
+  tabgraphe[0].printShortestDistance(13,3,16);
+
+
+   graphe t1=T.getGraphe();
+
+  T.raffraichirGraphe();
+
+  T.tuileSuivante(0, 1);
+  tabgraphe.push_back(T.getGraphe());
+  tabgraphe[1].displayAdjList(tabgraphe[1].adj,16);
+  tabgraphe[1].printShortestDistance(13,3,16);
+
+  T.raffraichirGraphe();
+
+T.dessiner();
   return 0 ;
 }
