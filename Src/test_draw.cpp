@@ -69,11 +69,11 @@ int main() {
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
 
-
   T.tuileSuivante(1, 1);
   tabgraphe.push_back(T.getGraphe());
   T.raffraichirGraphe();
  
+
 
   plateauEtJeu plateau(tabgraphe);
 
@@ -147,6 +147,32 @@ int main() {
         }
     }
     T.dessiner();
+
 */
+  //Pour deux tuile on afficher leur graphe et leur plus court chemin   
+
+  /*
+  std::vector<graphe>tabgraphe;
+ 
+  tuile T(24);
+
+  tabgraphe.push_back(T.getGraphe());
+  tabgraphe[0].displayAdjList(tabgraphe[0].adj,16);
+  tabgraphe[0].printShortestDistance(13,3,16);
+
+
+   graphe t1=T.getGraphe();
+
+  T.raffraichirGraphe();
+
+  T.tuileSuivante(0, 1);
+  tabgraphe.push_back(T.getGraphe());
+  tabgraphe[1].displayAdjList(tabgraphe[1].adj,16);
+  tabgraphe[1].printShortestDistance(13,3,16);
+
+  T.raffraichirGraphe();
+
+  T.dessiner();
+  */
   return 0 ;
 }

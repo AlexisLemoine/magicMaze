@@ -12,9 +12,8 @@
 using namespace std;
 
 
-vector<int> adj [16];
-std::vector<graphe>tabgraphe;
-int graphe_Counter=0;
+//vector<int> adj [16];
+
 
 //construre une liste de contiguïté
 void graphe:: add_edge(vector<int> adj[], int src, int dest)
@@ -313,8 +312,7 @@ void graphe::tousChemins(){
         //std:: cout<< std::endl;
     }
     
-
-    displayAdjList(adj,16);
+    //displayAdjList(adj,16);
 
     
 

@@ -46,7 +46,7 @@ tuile::tuile(int n):Union_find(n){
     tabCases[2].existeP = true;
     tabCases[4].existeP = true;
     tabCases[11].existeP = true;
-    std::cout<<"tuile créée. "<< std::endl;
+    // std::cout<<"tuile créée. "<< std::endl;
     int nbP=4;
     quellesCouleurs(nbP);
     associerCouleurs(nbP);
@@ -73,7 +73,6 @@ tuile::tuile(int n):Union_find(n){
 
     ajouterAuGraphe();
     G.creerGraphe();
-    G.printShortestDistance(2,8,16);
    
 
     murs.clear();
@@ -102,7 +101,7 @@ void tuile::tuileSuivante(int x, int y){
 
     tabCases[13].existeP = true;
     tabCases[13].couleurP = 0;
-    std::cout<<"tuile créée. "<< std::endl;
+    //std::cout<<"tuile créée. "<< std::endl;
 
     // ici, on stocke le nombre de portes dans nbP, puis on le réutilise dans quellesCouleurs
     int nbP = quellePorte();
@@ -125,7 +124,6 @@ void tuile::tuileSuivante(int x, int y){
 
     ajouterAuGraphe();
     G.creerGraphe();
-    G.printShortestDistance(2,8,16);
 
 
     murs.clear();
